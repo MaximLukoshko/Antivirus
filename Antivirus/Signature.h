@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "Sequence.h"
 
 using namespace std;
 
@@ -16,7 +17,6 @@ private:
 //Data
 public:
 	char* Name;
-	size_t SignLength;
-	char* Signature;
+  SequenceData Signature;
 };
 

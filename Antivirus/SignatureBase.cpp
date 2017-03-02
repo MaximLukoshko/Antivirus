@@ -18,16 +18,16 @@ bool CSignatureBase::isInfected( char* sequence )
   return false;
 }
 
-size_t CSignatureBase::GetBufferLength()
-{
-  size_t len = 0;
-  
-  for ( CSignature sign : SignList )
-    if ( sign.SignLength > len )
-      len = sign.SignLength;
-
-  return len;
-}
+// size_t CSignatureBase::GetBufferLength()
+// {
+//   size_t len = 0;
+//   
+//   for ( CSignature sign : SignList )
+//     if ( sign.SignLength > len )
+//       len = sign.SignLength;
+// 
+//   return len;
+// }
 
 void CSignatureBase::Init()
 {

@@ -2,13 +2,23 @@
 #include "DiskInteraction.h"
 
 
-CDiskInteraction::CDiskInteraction( size_t _BuffLen ) : BuffLen( _BuffLen )
+CDiskInteraction::CDiskInteraction()
 {
-  Position = 0;
-  Buffer = NULL;
 }
 
 
 CDiskInteraction::~CDiskInteraction()
 {
+}
+
+SequenceData CDiskInteraction::GetNextSequence()
+{
+  //TODO
+  return SequenceData();
+}
+
+SequenceData CDiskInteraction::GetCurrentSequence()
+{
+  //TODO
+  return SequenceData();
 }

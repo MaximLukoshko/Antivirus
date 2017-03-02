@@ -81,6 +81,8 @@
   <ItemGroup>
     <ClInclude Include="DiskInteraction.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="Scanner.h" />
+    <ClInclude Include="Sequence.h" />
     <ClInclude Include="Signature.h" />
     <ClInclude Include="SignatureBase.h" />
     <ClInclude Include="stdafx.h" />
@@ -89,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="Antivirus.cpp" />
     <ClCompile Include="DiskInteraction.cpp" />
+    <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="Signature.cpp" />
     <ClCompile Include="SignatureBase.cpp" />
     <ClCompile Include="stdafx.cpp">

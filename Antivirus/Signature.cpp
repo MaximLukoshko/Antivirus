@@ -12,13 +12,13 @@ CSignature::CSignature(char* _Name, size_t _SignLength, char* _Signature)
 
 CSignature::CSignature( const CSignature &s )
 {
-  InitFields( s.Name, s.SignLength, s.Signature );
+  InitFields( s.Name, s.Signature.SeqLength, s.Signature.Sequence );
 }
 
 CSignature::~CSignature()
 {
 	safe_delete(Name);
-	safe_delete(Signature);
+	safe_delete(Signature.Sequence);
 }
 
 void CSignature::InitFields( char* _Name, size_t _SignLength, char* _Signature )
@@ -27,8 +27,8 @@ void CSignature::InitFields( char* _Name, size_t _SignLength, char* _Signature )
   Name = new char[name_len];
   strcpy_s( Name, name_len, _Name );
 
-  SignLength = _SignLength;
+  Signature.SeqLength = _SignLength;
 
-  Signature = new char[_SignLength];
-  strcpy_s( Signature, _SignLength, _Signature );
+  Signature.Sequence = new char[_SignLength];
+  strcpy_s( Signature.Sequence, _SignLength, _Signature );
 }

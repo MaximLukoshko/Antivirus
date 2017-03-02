@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Заголовочные файлы\Utils">
+      <UniqueIdentifier>{7ac24489-ab94-4523-bf55-1728a73e80d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Signature">
+      <UniqueIdentifier>{4dd2c07a-a41b-4561-9685-ac1491f38f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\DiskInteraction">
+      <UniqueIdentifier>{2aa54079-57a6-4e57-acbf-d1584866e8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Scaner">
+      <UniqueIdentifier>{71bbccf0-0186-4065-909a-174860e9657c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,17 +36,23 @@
     <ClInclude Include="targetver.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="Macro.h">
+      <Filter>Заголовочные файлы\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
+      <Filter>Заголовочные файлы\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="Signature.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>Файлы исходного кода\Signature</Filter>
     </ClInclude>
     <ClInclude Include="SignatureBase.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>Файлы исходного кода\Signature</Filter>
     </ClInclude>
     <ClInclude Include="DiskInteraction.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>Файлы исходного кода\DiskInteraction</Filter>
     </ClInclude>
-    <ClInclude Include="Macro.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="Scanner.h">
+      <Filter>Файлы исходного кода\Scaner</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,13 +63,16 @@
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="Signature.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Файлы исходного кода\Signature</Filter>
     </ClCompile>
     <ClCompile Include="SignatureBase.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Файлы исходного кода\Signature</Filter>
     </ClCompile>
     <ClCompile Include="DiskInteraction.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Файлы исходного кода\DiskInteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanner.cpp">
+      <Filter>Файлы исходного кода\Scaner</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

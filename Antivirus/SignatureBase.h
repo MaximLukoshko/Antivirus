@@ -8,7 +8,7 @@ public:
 	~CSignatureBase();
 
   bool isInfected(char* sequence);
-  size_t GetBufferLength();
+//  size_t GetBufferLength();
 
 private:
   void Init();
