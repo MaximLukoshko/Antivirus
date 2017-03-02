@@ -2,8 +2,10 @@
 #include "DiskInteraction.h"
 
 
-CDiskInteraction::CDiskInteraction()
+CDiskInteraction::CDiskInteraction( size_t _BuffLen ) : BuffLen( _BuffLen )
 {
+  Position = 0;
+  Buffer = NULL;
 }
 
 
