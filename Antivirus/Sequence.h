@@ -18,12 +18,12 @@ struct SequenceData
     safe_delete_array( Sequence );
   }
 
-  void EndLine()
-  {
-    Sequence[SeqLength] = '\0';
-  }
+//   void EndLine()
+//   {
+//     Sequence[SeqLength] = '\0';
+//   }
 
   char* Sequence;
-  ULONGLONG SeqLength;
+  DWORD SeqLength;
 };
 

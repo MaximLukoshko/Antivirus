@@ -8,7 +8,7 @@ public:
   CSignatureBase();
   ~CSignatureBase();
 
-  bool IsInfected(ifstream& sequence, ULONGLONG file_size);
+  bool IsInfected(SequenceData seq, char* viruses);
 
 private:
   void Init();
@@ -16,6 +16,4 @@ private:
 //Data
 private:
   vector<CSignature> SignList;
-  SequenceData SeqBuffer;
-
 };

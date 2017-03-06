@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Scanner.h"
 
-void CScanner::OpenDirectory(char* dir, ULONGLONG file_size)
+void CScanner::OpenDirectory(char* dir)
 {
   HANDLE hFind;
   WIN32_FIND_DATA fileData;
@@ -15,27 +15,17 @@ void CScanner::OpenDirectory(char* dir, ULONGLONG file_size)
 
       char new_dir[500];
       GetPathForDir(dir, (char*)fileData.cFileName, new_dir);
-      file_size = ( fileData.nFileSizeHigh *  ( (ULONGLONG) MAXDWORD + 1 ) ) + fileData.nFileSizeLow;
-      OpenDirectory(new_dir, file_size);
+      OpenDirectory(new_dir);
     } while (FindNextFile(hFind, &fileData));
   }
   else
   {
     dir[strlen(dir) - 2] = '\0';
-
-    ifstream fin(dir);
-    if (!fin.is_open())
-    {
-      cout << "Can't open " << dir << "\n";
-    }
-    
-    if ( SignatureBase.IsInfected( fin, file_size) )
-    {
-      //TODO: Вывести информацию о том, что файл заражён
-
-    }
-
-    fin.close();
+    if (GetFileBuffer(dir))
+      if (SignatureBase.IsInfected(SeqBuffer, viruses))
+      {
+        scan_result << "Файл \"" << dir << "\" заражён вирусами: " << viruses << "\n\n";
+      }
   }
 }
 
@@ -50,11 +40,16 @@ void CScanner::GetPathForDir(char *old_path, char *dir_name, char *new_path)
 
 CScanner::CScanner( CSignatureBase& _SignatureBase )
   : SignatureBase( _SignatureBase )
-{}
+{
+  scan_result.open("Scanning results.txt");
+}
 
 
 CScanner::~CScanner()
-{}
+{
+  SeqBuffer.FreeMemory();
+  scan_result.close();
+}
 
 void CScanner::Scan()
 {
@@ -68,8 +63,43 @@ void CScanner::Scan()
       char dir[500];
       char disk[] = { i, ':', '\\', '*', '\0' };
       strcpy_s( dir, 5, disk );
-      OpenDirectory( dir, 0 );
+      OpenDirectory( dir);
     }
     mask >>= 1;
   }
+}
+
+bool CScanner::GetFileBuffer(char* dir)
+{
+  HANDLE  hFile;
+
+  // открываем файл для чтения
+  hFile = CreateFile(
+    dir,   // имя файла
+    GENERIC_READ,          // чтение из файла
+    0,                     // монопольный доступ к файлу
+    NULL,                  // защиты нет 
+    OPEN_EXISTING,         // открываем существующий файл
+    FILE_ATTRIBUTE_NORMAL, // обычный файл
+    NULL                   // шаблона нет
+    );
+
+  // проверяем на успешное открытие
+  if (hFile == INVALID_HANDLE_VALUE)
+    return false;
+
+  // определяем размер файла
+  SeqBuffer.SeqLength = GetFileSize(hFile, NULL);
+  CloseHandle(hFile);
+
+  if (SeqBuffer.SeqLength != -1)
+  {
+    replace_char_array(SeqBuffer.Sequence, SeqBuffer.SeqLength + 1);
+    ifstream fin(dir);
+    for (DWORD k = 0; k < SeqBuffer.SeqLength && !fin.eof(); k++)
+      fin >> SeqBuffer.Sequence[k];
+//    SeqBuffer.EndLine();
+  }
+
+  return true;
 }
