@@ -12,7 +12,7 @@ CSignatureBase::~CSignatureBase()
 {
 }
 
-bool CSignatureBase::isInfected( char* sequence )
+bool CSignatureBase::IsInfected( char* sequence )
 {
   //TODO
   return false;
