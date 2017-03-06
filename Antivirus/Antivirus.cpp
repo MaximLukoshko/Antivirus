@@ -5,7 +5,6 @@
 #include "Signature.h"
 #include "Macro.h"
 #include "SignatureBase.h"
-#include "DiskInteraction.h"
 #include "Scanner.h"
 
 
@@ -20,9 +19,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
   CSignatureBase sign_base;
 
-  CDiskInteraction disk;
-
-  CScanner scanner( sign_base, disk );
+  CScanner scanner( sign_base );
 
   scanner.Scan();
 

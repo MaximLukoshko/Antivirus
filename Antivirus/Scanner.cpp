@@ -30,7 +30,13 @@ void CScanner::OpenDirectory(char* dir, int deep)
     {
       
     }
-    //SignatureBase.IsInfected(seq);
+    
+    if ( SignatureBase.IsInfected( fin ) )
+    {
+      //TODO: Вывести информацию о том, что файл заражён
+
+    }
+
     fin.close();
   }
 }
@@ -44,8 +50,8 @@ void CScanner::GetPathForDir(char *old_path, char *dir_name, char *new_path)
 }
 //////////////////////////////////////////////////////////////////////////
 
-CScanner::CScanner( CSignatureBase& _SignatureBase, CDiskInteraction& _Disk )
-  : SignatureBase( _SignatureBase ), Disk( _Disk )
+CScanner::CScanner( CSignatureBase& _SignatureBase )
+  : SignatureBase( _SignatureBase )
 {}
 
 

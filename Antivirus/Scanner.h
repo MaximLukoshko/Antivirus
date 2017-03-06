@@ -1,10 +1,9 @@
 #pragma once
 #include "SignatureBase.h"
-#include "DiskInteraction.h"
 class CScanner
 {
 public:
-  CScanner( CSignatureBase& _SignatureBase, CDiskInteraction& _Disk );
+  CScanner( CSignatureBase& _SignatureBase );
   ~CScanner();
 
   void Scan();
@@ -15,6 +14,5 @@ private:
 //Data
 private: 
   CSignatureBase& SignatureBase;
-  CDiskInteraction& Disk;
 };
 

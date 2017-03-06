@@ -79,7 +79,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DiskInteraction.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="Scanner.h" />
     <ClInclude Include="Sequence.h" />
@@ -90,7 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Antivirus.cpp" />
-    <ClCompile Include="DiskInteraction.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="Signature.cpp" />
     <ClCompile Include="SignatureBase.cpp" />

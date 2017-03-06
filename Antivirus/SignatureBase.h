@@ -1,14 +1,15 @@
 #pragma once
 #include <vector>
 #include "Signature.h"
+#include <fstream>
+
 class CSignatureBase
 {
 public:
   CSignatureBase();
   ~CSignatureBase();
 
-  bool IsInfected(char* sequence);
-//  size_t GetBufferLength();
+  bool IsInfected(ifstream& sequence);
 
 private:
   void Init();
