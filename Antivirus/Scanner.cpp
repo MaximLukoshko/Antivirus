@@ -57,12 +57,15 @@ void CScanner::Scan()
   cout << "Scanning System..." << endl;
 
   DWORD mask = GetLogicalDrives();
-  for(char i='A'; i<='Z'; i++)
+  for ( char i = 'A'; i <= 'Z'; i++ )
   {
-//	  cout << " " << ((mask & 1) ? i : '\0');
-	  mask >>= 1;
-	  char dir[500];
-	  strcpy_s(dir, 5, i + ":\\*");
-	  OpenDirectory(dir, 0);
+    if ( mask & 1 )
+    {
+      char dir[500];
+      char disk[] = { i, ':', '\\', '*', '\0' };
+      strcpy_s( dir, 5, disk );
+      OpenDirectory( dir, 0 );
+    }
+    mask >>= 1;
   }
 }
