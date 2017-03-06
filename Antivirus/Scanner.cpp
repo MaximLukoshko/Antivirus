@@ -1,11 +1,7 @@
 #include "stdafx.h"
 #include "Scanner.h"
-#include <iostream>
-#include <windows.h>
-#include <stdio.h>
-#include <fstream>
 
-void CScanner::OpenDirectory(char* dir, int deep)
+void CScanner::OpenDirectory(char* dir, ULONGLONG file_size)
 {
   HANDLE hFind;
   WIN32_FIND_DATA fileData;
@@ -19,19 +15,21 @@ void CScanner::OpenDirectory(char* dir, int deep)
 
       char new_dir[500];
       GetPathForDir(dir, (char*)fileData.cFileName, new_dir);
-      OpenDirectory(new_dir, deep + 2);
+      file_size = ( fileData.nFileSizeHigh *  ( (ULONGLONG) MAXDWORD + 1 ) ) + fileData.nFileSizeLow;
+      OpenDirectory(new_dir, file_size);
     } while (FindNextFile(hFind, &fileData));
   }
   else
   {
-    dir[strlen(dir) - 3] = '\0';
+    dir[strlen(dir) - 2] = '\0';
+
     ifstream fin(dir);
     if (!fin.is_open())
     {
-      
+      cout << "Can't open " << dir << "\n";
     }
     
-    if ( SignatureBase.IsInfected( fin ) )
+    if ( SignatureBase.IsInfected( fin, file_size) )
     {
       //TODO: Вывести информацию о том, что файл заражён
 

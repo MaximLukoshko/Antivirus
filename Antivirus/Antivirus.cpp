@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "Signature.h"
-#include "Macro.h"
 #include "SignatureBase.h"
 #include "Scanner.h"
 

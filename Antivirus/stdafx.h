@@ -13,3 +13,9 @@
 
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
+#include <iostream>
+#include <windows.h>
+#include <stdio.h>
+#include <fstream>
+#include "Macro.h"
+#include <string.h>

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Signature.h"
 #include "Macro.h"
-#include <string.h>
 
 
 CSignature::CSignature(char* _Name, size_t _SignLength, char* _Signature)

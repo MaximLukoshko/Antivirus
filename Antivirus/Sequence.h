@@ -7,13 +7,23 @@ struct SequenceData
     SeqLength = 0;
   }
 
-  SequenceData( char* _Sequence, size_t _SignLength )
+  SequenceData( size_t _SignLength, char* _Sequence = NULL )
   {
     Sequence = _Sequence;
     SeqLength = _SignLength;
   }
 
+  void FreeMemory()
+  {
+    safe_delete_array( Sequence );
+  }
+
+  void EndLine()
+  {
+    Sequence[SeqLength] = '\0';
+  }
+
   char* Sequence;
-  size_t SeqLength;
+  ULONGLONG SeqLength;
 };
 

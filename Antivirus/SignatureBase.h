@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include "Signature.h"
-#include <fstream>
 
 class CSignatureBase
 {
@@ -9,7 +8,7 @@ public:
   CSignatureBase();
   ~CSignatureBase();
 
-  bool IsInfected(ifstream& sequence);
+  bool IsInfected(ifstream& sequence, ULONGLONG file_size);
 
 private:
   void Init();
@@ -17,5 +16,6 @@ private:
 //Data
 private:
   vector<CSignature> SignList;
+  SequenceData SeqBuffer;
 
 };
