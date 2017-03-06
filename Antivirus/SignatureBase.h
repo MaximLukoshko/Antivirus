@@ -4,8 +4,8 @@
 class CSignatureBase
 {
 public:
-	CSignatureBase();
-	~CSignatureBase();
+  CSignatureBase();
+  ~CSignatureBase();
 
   bool IsInfected(char* sequence);
 //  size_t GetBufferLength();

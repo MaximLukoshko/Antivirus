@@ -10,8 +10,8 @@ public:
   void Scan();
 
 private:
-	void OpenDirectory(char* dir, int deep);
-	void GetPathForDir(char *old_path, char *dir_name, char *new_path);
+  void OpenDirectory(char* dir, int deep);
+  void GetPathForDir(char *old_path, char *dir_name, char *new_path);
 //Data
 private: 
   CSignatureBase& SignatureBase;

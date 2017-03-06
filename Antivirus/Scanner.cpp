@@ -7,40 +7,40 @@
 
 void CScanner::OpenDirectory(char* dir, int deep)
 {
-	HANDLE hFind;
-	WIN32_FIND_DATA fileData;
-	hFind = FindFirstFile(dir, &fileData);
-	if (hFind != INVALID_HANDLE_VALUE)
-	{
-		do
-		{
-			if (fileData.cFileName[0] == '.')
-				continue;
+  HANDLE hFind;
+  WIN32_FIND_DATA fileData;
+  hFind = FindFirstFile(dir, &fileData);
+  if (hFind != INVALID_HANDLE_VALUE)
+  {
+    do
+    {
+      if (fileData.cFileName[0] == '.')
+        continue;
 
-			char new_dir[500];
-			GetPathForDir(dir, (char*)fileData.cFileName, new_dir);
-			OpenDirectory(new_dir, deep + 2);
-		} while (FindNextFile(hFind, &fileData));
-	}
-	else
-	{
-		dir[strlen(dir) - 3] = '\0';
-		ifstream fin(dir);
-		if (!fin.is_open())
-		{
-			
-		}
-		//SignatureBase.IsInfected(seq);
-		fin.close();
-	}
+      char new_dir[500];
+      GetPathForDir(dir, (char*)fileData.cFileName, new_dir);
+      OpenDirectory(new_dir, deep + 2);
+    } while (FindNextFile(hFind, &fileData));
+  }
+  else
+  {
+    dir[strlen(dir) - 3] = '\0';
+    ifstream fin(dir);
+    if (!fin.is_open())
+    {
+      
+    }
+    //SignatureBase.IsInfected(seq);
+    fin.close();
+  }
 }
 
 void CScanner::GetPathForDir(char *old_path, char *dir_name, char *new_path)
 {
-	strcpy_s(new_path, strlen(old_path) + 1, old_path);
-	new_path[strlen(new_path) - 1] = '\0';// убираем '*' и добавляем '\'
-	strcat_s(new_path, strlen(new_path) + 1 + strlen(dir_name), dir_name);
-	strcat_s(new_path, strlen(new_path) + 1 + 3, "\\*");
+  strcpy_s(new_path, strlen(old_path) + 1, old_path);
+  new_path[strlen(new_path) - 1] = '\0';// убираем '*' и добавляем '\'
+  strcat_s(new_path, strlen(new_path) + 1 + strlen(dir_name), dir_name);
+  strcat_s(new_path, strlen(new_path) + 1 + 3, "\\*");
 }
 //////////////////////////////////////////////////////////////////////////
 

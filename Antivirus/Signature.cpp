@@ -17,8 +17,8 @@ CSignature::CSignature( const CSignature &s )
 
 CSignature::~CSignature()
 {
-	safe_delete(Name);
-	safe_delete(Signature.Sequence);
+  safe_delete(Name);
+  safe_delete(Signature.Sequence);
 }
 
 void CSignature::InitFields( char* _Name, size_t _SignLength, char* _Signature )

@@ -7,16 +7,16 @@ using namespace std;
 class CSignature
 {
 public:
-	CSignature(char* _Name, size_t _SignLength, char* _Signature);
+  CSignature(char* _Name, size_t _SignLength, char* _Signature);
   CSignature( const CSignature &s );
-	~CSignature();
+  ~CSignature();
 
 private:
   void InitFields( char* _Name, size_t _SignLength, char* _Signature );
 
 //Data
 public:
-	char* Name;
+  char* Name;
   SequenceData Signature;
 };
 
