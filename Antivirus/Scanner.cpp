@@ -21,10 +21,12 @@ void CScanner::OpenDirectory(char* dir)
   else
   {
     dir[strlen(dir) - 2] = '\0';
+    cout << "Scanning \"" << dir << "\" \n";
     if (GetFileBuffer(dir))
-      if (SignatureBase.IsInfected(SeqBuffer, viruses))
+      if ( SignatureBase.IsInfected( SeqBuffer, viruses ) )
       {
-        scan_result << "Файл \"" << dir << "\" заражён вирусами: " << viruses << "\n\n";
+        m_ScanResult << "Файл \"" << dir << "\" заражён вирусами: " << viruses.c_str() << "\n";
+//        cout << "Файл \"" << dir << "\" заражён вирусами: " << viruses.c_str() << "\n";
       }
   }
 }
@@ -41,14 +43,16 @@ void CScanner::GetPathForDir(char *old_path, char *dir_name, char *new_path)
 CScanner::CScanner( CSignatureBase& _SignatureBase )
   : SignatureBase( _SignatureBase )
 {
-  scan_result.open("Scanning results.txt");
+  m_ScanResult.open("Scanning results.txt");
+  m_Log.open( "Log.txt" );
 }
 
 
 CScanner::~CScanner()
 {
   SeqBuffer.FreeMemory();
-  scan_result.close();
+  m_ScanResult.close();
+  m_Log.close();
 }
 
 void CScanner::Scan()
@@ -85,8 +89,12 @@ bool CScanner::GetFileBuffer(char* dir)
     );
 
   // проверяем на успешное открытие
-  if (hFile == INVALID_HANDLE_VALUE)
+  if ( hFile == INVALID_HANDLE_VALUE )
+  {
+    m_Log << "Can not open \"" << dir << "\"" << endl;
+//    cout << "Can not open \"" << dir << "\"" << endl;
     return false;
+  }
 
   // определяем размер файла
   SeqBuffer.SeqLength = GetFileSize(hFile, NULL);
@@ -96,9 +104,8 @@ bool CScanner::GetFileBuffer(char* dir)
   {
     replace_char_array(SeqBuffer.Sequence, SeqBuffer.SeqLength + 1);
     ifstream fin(dir);
-    for (DWORD k = 0; k < SeqBuffer.SeqLength && !fin.eof(); k++)
+    for ( DWORD k = 0; k < SeqBuffer.SeqLength && !fin.eof(); k++ )
       fin >> SeqBuffer.Sequence[k];
-//    SeqBuffer.EndLine();
   }
 
   return true;

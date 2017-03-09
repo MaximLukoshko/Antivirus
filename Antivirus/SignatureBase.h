@@ -8,7 +8,7 @@ public:
   CSignatureBase();
   ~CSignatureBase();
 
-  bool IsInfected(SequenceData seq, char* viruses);
+  bool IsInfected(SequenceData seq, string &viruses);
 
 private:
   void Init();

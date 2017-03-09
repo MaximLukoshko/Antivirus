@@ -19,7 +19,8 @@ private:
 private: 
   CSignatureBase& SignatureBase;
   SequenceData SeqBuffer;
-  ofstream scan_result;
-  char viruses[500];
+  ofstream m_ScanResult;
+  ofstream m_Log;
+  string viruses;
 };
 
