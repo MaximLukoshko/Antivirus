@@ -22,3 +22,6 @@
 /Antivirus/Antivirus.sdf
 /Antivirus/Antivirus.v12.suo
 /Antivirus/Debug/*.obj
+/Antivirus/Debug/Antivirus.Build.CppClean.log
+/Antivirus/Log.txt
+/Antivirus/Scanning results.txt
