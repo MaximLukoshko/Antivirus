@@ -15,7 +15,7 @@ private:
   void OpenDirectory(char* dir);
   void GetPathForDir(char *old_path, char *dir_name, char *new_path);
   bool ScanFile(char* dir);
-  DWORD ReplaceBuffer(DWORD new_length);
+//  DWORD ReplaceBuffer(DWORD new_length);
 
   //Data
 private: 

@@ -120,15 +120,15 @@ bool CScanner::ScanFile(char* dir)
   return true;
 }
 
-DWORD CScanner::ReplaceBuffer(DWORD new_length)
-{
-  new_length = new_length <= array_max_size ? new_length : array_max_size;   
-
-  if (new_length > m_SeqBuffer_Length)
-  {
-    replace_char_array(m_SeqBuffer.Sequence, new_length);
-    m_SeqBuffer_Length = new_length;
-  }
-
-  return m_SeqBuffer_Length;
-}
+// DWORD CScanner::ReplaceBuffer(DWORD new_length)
+// {
+//   new_length = new_length <= array_max_size ? new_length : array_max_size;   
+// 
+//   if (new_length > m_SeqBuffer_Length)
+//   {
+//     replace_char_array(m_SeqBuffer.Sequence, new_length);
+//     m_SeqBuffer_Length = new_length;
+//   }
+// 
+//   return m_SeqBuffer_Length;
+// }
