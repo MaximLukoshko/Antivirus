@@ -14,12 +14,16 @@ public:
 private:
   void OpenDirectory(char* dir);
   void GetPathForDir(char *old_path, char *dir_name, char *new_path);
-  bool GetFileBuffer(char* dir);
-//Data
+  bool ScanFile(char* dir);
+  DWORD ReplaceBuffer(DWORD new_length);
+
+  //Data
 private: 
-  CSignatureBase& SignatureBase;
-  SequenceData SeqBuffer;
-  ofstream scan_result;
+  CSignatureBase& m_SignatureBase;
+  SequenceData m_SeqBuffer;
+  DWORD m_SeqBuffer_Length;
+  ofstream m_Scan_result;
+  ifstream m_Fin;
   char viruses[500];
 };
 

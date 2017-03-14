@@ -21,11 +21,7 @@ void CScanner::OpenDirectory(char* dir)
   else
   {
     dir[strlen(dir) - 2] = '\0';
-    if (GetFileBuffer(dir))
-      if (SignatureBase.IsInfected(SeqBuffer, viruses))
-      {
-        scan_result << "Файл \"" << dir << "\" заражён вирусами: " << viruses << "\n\n";
-      }
+    ScanFile(dir);
   }
 }
 
@@ -39,21 +35,27 @@ void CScanner::GetPathForDir(char *old_path, char *dir_name, char *new_path)
 //////////////////////////////////////////////////////////////////////////
 
 CScanner::CScanner( CSignatureBase& _SignatureBase )
-  : SignatureBase( _SignatureBase )
+  : m_SignatureBase( _SignatureBase )
 {
-  scan_result.open("Scanning results.txt");
+  m_SeqBuffer.Sequence = new char[array_max_size];
+  m_SeqBuffer_Length = 0;
+  m_Scan_result.open("Scanning results.txt");
 }
 
 
 CScanner::~CScanner()
 {
-  SeqBuffer.FreeMemory();
-  scan_result.close();
+  m_SeqBuffer.FreeMemory();
+  m_Scan_result.close();
 }
 
 void CScanner::Scan()
 {
   cout << "Scanning System..." << endl;
+
+//   char dir[500];
+//   strcpy_s( dir, 10, "D:\\TEST\\*" );
+//   OpenDirectory(dir);
 
   DWORD mask = GetLogicalDrives();
   for ( char i = 'A'; i <= 'Z'; i++ )
@@ -62,6 +64,7 @@ void CScanner::Scan()
     {
       char dir[500];
       char disk[] = { i, ':', '\\', '*', '\0' };
+      cout << "Disk " << disk << endl;
       strcpy_s( dir, 5, disk );
       OpenDirectory( dir);
     }
@@ -69,7 +72,7 @@ void CScanner::Scan()
   }
 }
 
-bool CScanner::GetFileBuffer(char* dir)
+bool CScanner::ScanFile(char* dir)
 {
   HANDLE  hFile;
 
@@ -89,17 +92,43 @@ bool CScanner::GetFileBuffer(char* dir)
     return false;
 
   // определяем размер файла
-  SeqBuffer.SeqLength = GetFileSize(hFile, NULL);
+  DWORD file_length = GetFileSize(hFile, NULL);
   CloseHandle(hFile);
 
-  if (SeqBuffer.SeqLength != -1)
+  if (file_length != -1)
   {
-    replace_char_array(SeqBuffer.Sequence, SeqBuffer.SeqLength + 1);
-    ifstream fin(dir);
-    for (DWORD k = 0; k < SeqBuffer.SeqLength && !fin.eof(); k++)
-      fin >> SeqBuffer.Sequence[k];
-//    SeqBuffer.EndLine();
+    m_Fin.open(dir, ios_base::binary);
+    //DWORD buff_len = ReplaceBuffer(file_length);
+    
+    while (file_length > 0)
+    {
+      DWORD buff_len = array_max_size > file_length ? file_length : array_max_size;
+      file_length -= buff_len;
+
+      m_SeqBuffer.SeqLength = buff_len;
+
+      m_Fin.read(m_SeqBuffer.Sequence, buff_len * sizeof(char));
+
+      if (m_SignatureBase.IsInfected(m_SeqBuffer, viruses))
+      {
+        m_Scan_result << "Файл \"" << dir << "\" заражён вирусами: " << viruses << "\n\n";
+      }
+    }
+    m_Fin.close();
   }
 
   return true;
+}
+
+DWORD CScanner::ReplaceBuffer(DWORD new_length)
+{
+  new_length = new_length <= array_max_size ? new_length : array_max_size;   
+
+  if (new_length > m_SeqBuffer_Length)
+  {
+    replace_char_array(m_SeqBuffer.Sequence, new_length);
+    m_SeqBuffer_Length = new_length;
+  }
+
+  return m_SeqBuffer_Length;
 }
