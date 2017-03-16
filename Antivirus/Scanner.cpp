@@ -109,9 +109,13 @@ bool CScanner::ScanFile(char* dir)
 
       m_Fin.read(m_SeqBuffer.Sequence, buff_len * sizeof(char));
 
-      if (m_SignatureBase.IsInfected(m_SeqBuffer, viruses))
+      // Смещение на длину самой большой сигнатуры, если файл зачитывается по частям
+      if ( file_length > 0 )
+        m_Fin.seekg( -m_SignatureBase.GetMaxSignLen(), ios::cur );
+
+      if (m_SignatureBase.IsInfected(m_SeqBuffer, m_VirusesStr))
       {
-        m_Scan_result << "Файл \"" << dir << "\" заражён вирусами: " << viruses << "\n\n";
+        m_Scan_result << "Файл \"" << dir << "\" заражён вирусами: " << m_VirusesStr << "\n\n";
       }
     }
     m_Fin.close();

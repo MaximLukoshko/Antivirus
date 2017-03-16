@@ -16,12 +16,12 @@ bool CSignatureBase::IsInfected( SequenceData seq, char* viruses )
 {
   strcpy_s(viruses, 2, "");
   bool ret = false;
-  for (CSignature sign : SignList)
+  for (CSignature sign : m_SignList)
   {
-    for (unsigned int i = 0; i < seq.SeqLength - sign.Signature.SeqLength; i++)
+    for ( long i = 0; i < seq.SeqLength - sign.Signature.SeqLength; i++ )
     {
       bool virus_exists = true;
-      for (unsigned int j = 0; j < sign.Signature.SeqLength; j++)
+      for ( long j = 0; j < sign.Signature.SeqLength; j++ )
       {
         if (seq.Sequence[i + j] != sign.Signature.Sequence[j])
         {
@@ -44,6 +44,11 @@ bool CSignatureBase::IsInfected( SequenceData seq, char* viruses )
   return ret;
 }
 
+LONG CSignatureBase::GetMaxSignLen()
+{
+  return m_MaxSignLen;
+}
+
 void CSignatureBase::Init()
 {
   //TODO
@@ -51,7 +56,17 @@ void CSignatureBase::Init()
   CSignature signature2("hg_Virus", 2, "hg");
   CSignature signature3("Maxim_Virus", 5, "virus");
 
-  SignList.push_back( signature1 );
-  SignList.push_back( signature2 );
-  SignList.push_back( signature3 );
+  m_SignList.push_back( signature1 );
+  m_SignList.push_back( signature2 );
+  m_SignList.push_back( signature3 );
+
+  CountMaxSignLen();
+}
+
+void CSignatureBase::CountMaxSignLen()
+{
+  m_MaxSignLen = -1;
+  for ( CSignature sign : m_SignList )
+    if ( m_MaxSignLen < sign.Signature.SeqLength )
+      m_MaxSignLen = sign.Signature.SeqLength;
 }

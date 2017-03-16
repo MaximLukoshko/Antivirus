@@ -24,6 +24,6 @@ struct SequenceData
 //   }
 
   char* Sequence;
-  DWORD SeqLength;
+  LONG SeqLength;
 };
 

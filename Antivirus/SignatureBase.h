@@ -9,11 +9,13 @@ public:
   ~CSignatureBase();
 
   bool IsInfected(SequenceData seq, char* viruses);
-
+  LONG GetMaxSignLen();
 private:
   void Init();
+  void CountMaxSignLen();
 
 //Data
 private:
-  vector<CSignature> SignList;
+  vector<CSignature> m_SignList;
+  LONG m_MaxSignLen; // Микрооптимизация
 };

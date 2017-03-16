@@ -24,6 +24,6 @@ private:
   DWORD m_SeqBuffer_Length;
   ofstream m_Scan_result;
   ifstream m_Fin;
-  char viruses[500];
+  char m_VirusesStr[500];
 };
 
