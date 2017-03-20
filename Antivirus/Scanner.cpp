@@ -111,7 +111,10 @@ bool CScanner::ScanFile(char* dir)
 
       // Смещение на длину самой большой сигнатуры, если файл зачитывается по частям
       if ( file_length > 0 )
+      {
         m_Fin.seekg( -m_SignatureBase.GetMaxSignLen(), ios::cur );
+        file_length += m_SignatureBase.GetMaxSignLen();
+      }
 
       if (m_SignatureBase.IsInfected(m_SeqBuffer, m_VirusesStr))
       {
