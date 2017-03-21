@@ -52,13 +52,10 @@ LONG CSignatureBase::GetMaxSignLen()
 void CSignatureBase::Init()
 {
   //TODO
-  CSignature signature1( "12345_Virus", 5, "12345" );
-  CSignature signature2("hg_Virus", 2, "hg");
-  CSignature signature3("Maxim_Virus", 5, "virus");
-
-  m_SignList.push_back( signature1 );
-  m_SignList.push_back( signature2 );
-  m_SignList.push_back( signature3 );
+  m_SignList.push_back(CSignature("12345_Virus", 5, "12345"));
+  m_SignList.push_back(CSignature("hghghghghg_Virus", 10, "hghghghghg"));
+  m_SignList.push_back(CSignature("Maxim_Virus", 5, "virus"));
+  m_SignList.push_back(CSignature("Maximus_Virus", 7, "Maximus"));
 
   CountMaxSignLen();
 }
