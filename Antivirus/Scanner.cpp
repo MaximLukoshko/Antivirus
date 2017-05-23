@@ -51,25 +51,36 @@ CScanner::~CScanner()
 
 void CScanner::Scan()
 {
+  char dir[500] = "";
+  cout << "Enter folder for scanning...\n";
+  cout << "\nFor example, 'c:\windows\*', 'all', 'D:\TEMP'\n\n";
+  cin.getline(dir, 480);
+
   cout << "Scanning System..." << endl;
-
-//   char dir[500];
-//   strcpy_s( dir, 10, "D:\\TEST\\*" );
-//   OpenDirectory(dir);
-
-  DWORD mask = GetLogicalDrives();
-  for ( char i = 'A'; i <= 'Z'; i++ )
+  if (strcmp(dir, "all") == 0)
   {
-    if ( mask & 1 )
+    DWORD mask = GetLogicalDrives();
+    for (char i = 'A'; i <= 'Z'; i++)
     {
-      char dir[500];
-      char disk[] = { i, ':', '\\', '*', '\0' };
-      cout << "Disk " << disk << endl;
-      strcpy_s( dir, 5, disk );
-      OpenDirectory( dir);
+      if (mask & 1)
+      {
+        char dir[500];
+        char disk[] = { i, ':', '\\', '*', '\0' };
+        cout << "Disk " << disk << endl;
+        strcpy_s(dir, 5, disk);
+        OpenDirectory(dir);
+      }
+      mask >>= 1;
     }
-    mask >>= 1;
   }
+  else
+  {
+    OpenDirectory(dir);
+  }
+
+  //   char dir[500];
+  //   strcpy_s( dir, 10, "D:\\TEST\\*" );
+  //   OpenDirectory(dir);
 }
 
 bool CScanner::ScanFile(char* dir)
