@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Scanner.h"
+#include <string>
 
-void CScanner::OpenDirectory(char* dir)
+void CScanner::OpenDirectory(char* dir, char* ext)
 {
   HANDLE hFind;
   WIN32_FIND_DATA fileData;
@@ -15,13 +16,29 @@ void CScanner::OpenDirectory(char* dir)
 
       char new_dir[500];
       GetPathForDir(dir, (char*)fileData.cFileName, new_dir);
-      OpenDirectory(new_dir);
+      OpenDirectory(new_dir, ext);
     } while (FindNextFile(hFind, &fileData));
   }
   else
   {
     dir[strlen(dir) - 2] = '\0';
-    ScanFile(dir);
+    // проверяем расширение
+    int lengthExt = strlen(ext);
+    int lengthDir = strlen(dir);
+    char extDir[500] = "";
+   
+    int j = 0;
+    for (int i = lengthDir - lengthExt; i < lengthDir; i++){
+      extDir[j] = dir[i];
+      j++;
+    }
+    if (!strcmp(extDir, ext) || !strcmp("all", ext)) {
+
+      cout << "SCANNING " << dir << endl;
+
+      ScanFile(dir);
+    }
+    
   }
 }
 
@@ -52,9 +69,13 @@ CScanner::~CScanner()
 void CScanner::Scan()
 {
   char dir[500] = "";
+  char ext[500] = "";
   cout << "Enter folder for scanning...\n";
-  cout << "\nFor example, 'c:\windows\*', 'all', 'D:\TEMP'\n\n";
+  cout << "\nFor example, 'c:\\windows\\*', 'all', 'D:\\TEMP\\*'\n\n";
   cin.getline(dir, 480);
+  cout << "Enter file extension...\n";
+  cout << "\nFor example, 'all', 'exe', 'txt'\n\n";
+  cin.getline(ext, 480);
 
   cout << "Scanning System..." << endl;
   if (strcmp(dir, "all") == 0)
@@ -68,14 +89,14 @@ void CScanner::Scan()
         char disk[] = { i, ':', '\\', '*', '\0' };
         cout << "Disk " << disk << endl;
         strcpy_s(dir, 5, disk);
-        OpenDirectory(dir);
+        OpenDirectory(dir, ext);
       }
       mask >>= 1;
     }
   }
   else
   {
-    OpenDirectory(dir);
+    OpenDirectory(dir, ext);
   }
 
   //   char dir[500];
@@ -97,6 +118,7 @@ bool CScanner::ScanFile(char* dir)
     FILE_ATTRIBUTE_NORMAL, // обычный файл
     NULL                   // шаблона нет
     );
+  
 
   // проверяем на успешное открытие
   if (hFile == INVALID_HANDLE_VALUE)
@@ -129,6 +151,8 @@ bool CScanner::ScanFile(char* dir)
 
       if (m_SignatureBase.IsInfected(m_SeqBuffer, m_VirusesStr))
       {
+        cout << "FOUND THE VIRUS " << m_VirusesStr << endl;
+        system("pause");
         m_Scan_result << "Файл \"" << dir << "\" заражён вирусами: " << m_VirusesStr << "\n\n";
       }
     }

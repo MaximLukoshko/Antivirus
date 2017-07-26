@@ -53,9 +53,9 @@ void CSignatureBase::Init()
 {
   //TODO
   m_SignList.push_back(CSignature("12345_Virus", 5, "12345"));
-  m_SignList.push_back(CSignature("hghghghghg_Virus", 10, "hghghghghg"));
-  m_SignList.push_back(CSignature("Maxim_Virus", 5, "virus"));
-  m_SignList.push_back(CSignature("Maximus_Virus", 7, "Maximus"));
+  m_SignList.push_back(CSignature(" abababab_Virus", 10, "abababab"));
+  m_SignList.push_back(CSignature("Strong_Virus", 5, "virus"));
+  
 
   CountMaxSignLen();
 }

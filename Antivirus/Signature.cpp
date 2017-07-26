@@ -28,7 +28,7 @@ void CSignature::InitFields( char* _Name, size_t _SignLength, char* _Signature )
 
   Signature.SeqLength = _SignLength;
 
-  //TODO: Сделать зачитку сигнатур из файла
+  
   Signature.Sequence = new char[_SignLength + 1];
   strcpy_s( Signature.Sequence, _SignLength + 1, _Signature );
 }
